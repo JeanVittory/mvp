@@ -23,7 +23,7 @@ const createUser = async () => {
 	}
 };
 
-const savePassword = async (encryptedPassword: string, id: number) => {
+const savePassword = async (encryptedPassword: string, id: string) => {
 	try {
 		await prisma.password.create({
 			data: {

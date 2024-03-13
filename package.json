@@ -8,7 +8,8 @@
 		"tsc": "tsc",
 		"prisma:studio": "npx prisma studio",
 		"prisma:seeders": "ts-node-dev ./src/api/database/seeders/users/register.seeders.ts",
-		"prisma:migrate:dev": "npx prisma migrate dev"
+		"prisma:migrate:dev": "npx prisma migrate dev",
+		"prisma:reset": "npx prisma migrate reset"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "5.0.2",
