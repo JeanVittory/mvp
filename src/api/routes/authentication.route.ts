@@ -1,9 +1,9 @@
-import { Router } from "express";
-import { authentication } from "../controllers/auth";
+import { Router } from 'express';
+import { authentication } from '../controllers/auth/auth.controllers';
+import { authenticationValidator } from '../middlewares/auth.middlewares';
 
 const authRouter = Router();
 
-authRouter.get("/", authentication)
+authRouter.get('/', authenticationValidator, authentication);
 
-
-export { authRouter }
+export { authRouter };

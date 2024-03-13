@@ -1,4 +1,4 @@
-import { IApiError } from './interfaces/errors.interfaces';
+import { IApiError } from '../interfaces/errors.interfaces';
 
 export class ApiError extends Error implements IApiError {
 	readonly status: number;

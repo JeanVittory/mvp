@@ -1,0 +1,8 @@
+{
+	"authentication": {
+		"INVALID_INFORMATION": {
+			"CODE": "100",
+			"MESSAGE": "Invalid information."
+		}
+	}
+}
