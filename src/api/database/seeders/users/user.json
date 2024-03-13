@@ -1,0 +1,29 @@
+[
+	{
+		"enterprise": "Tienda D1",
+		"userName": "Paola Diaz",
+		"email": "d1@yopmail.com",
+		"password": "123"
+	},
+
+	{
+		"enterprise": "Tienda La Amiga",
+		"userName": "Ricardo Meneses",
+		"email": "amiga@yopmail.com",
+		"password": "123"
+	},
+
+	{
+		"enterprise": "Surtidora La 32",
+		"userName": "Esteban Solis",
+		"email": "surtidora@yopmail.com",
+		"password": "123"
+	},
+
+	{
+		"enterprise": "Abarrotes La Victoria",
+		"userName": "Monica Hincapie",
+		"email": "lavictoria@yopmail.com",
+		"password": "123"
+	}
+]
