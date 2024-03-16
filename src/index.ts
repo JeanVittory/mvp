@@ -1,8 +1,8 @@
-import { app } from "./config/express.config";
-import { PORT } from "./api/constants";
+import { app } from './config/express.config';
+import env from './config/dotenv.config';
 
-function init (): void{
-    app.listen(PORT, () => console.log(`Server running on port: ${PORT}`))
+function init(): void {
+	app.listen(env.PORT, () => console.log(`Server running on port: ${env.PORT}`));
 }
 
-init()
+init();
