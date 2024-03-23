@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { deleteSession } from '../../services/sessions.service';
 import { ApiError } from '../../../config/errors/apiError.config';
+import { errorCatcher } from '../../utils/errorCatcher.utils';
 
 export const logout = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 	try {
@@ -10,7 +11,6 @@ export const logout = async (req: Request, res: Response, next: NextFunction): P
 		if (!response) throw ApiError.Unauthorized();
 		res.status(200).json(response);
 	} catch (error) {
-		if (error instanceof ApiError) return next(error);
-		return next(ApiError.Internal('Unknown Error'));
+		errorCatcher(error, next);
 	}
 };

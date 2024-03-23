@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { ApiError } from '../../../config/errors/apiError.config';
 import { authenticationService } from '../../services/authentication.service';
+import { errorCatcher } from '../../utils/errorCatcher.utils';
 
 export const authentication = async (
 	req: Request,
@@ -12,7 +12,6 @@ export const authentication = async (
 		const tokens = await authenticationService(email, password);
 		res.status(200).json(tokens);
 	} catch (error) {
-		if (error instanceof ApiError) return next(error);
-		return next(ApiError.Internal('Unknown Error'));
+		errorCatcher(error, next);
 	}
 };
