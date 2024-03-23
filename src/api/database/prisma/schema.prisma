@@ -19,6 +19,7 @@ model User {
   userName   String
   email      String    @unique
   password   Password?
+  sales      Sale[]
   createdAt  DateTime  @default(now())
 }
 
@@ -34,4 +35,17 @@ model Session {
   email    String  @unique
   userName String
   valid    Boolean @default(true)
+}
+
+model Sale {
+  id            String   @id @default(uuid())
+  movementType  String
+  operationType String?
+  bankEntity    String?
+  debitNote     String?
+  description   String?
+  totalAmount   Decimal
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
 }
