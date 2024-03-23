@@ -8,7 +8,7 @@ export const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
-routesConfiguration();
+routesConfiguration(app);
 app.use(errorHandler);
 app.use((_err: Error, _req: Request, res: Response, _next: NextFunction): void => {
 	res.status(500).send('Internal Server Error');

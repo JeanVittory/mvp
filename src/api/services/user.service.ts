@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { ApiError } from '../../config/errors/apiError.config';
 
-export const authenticationUserService = async (email: string) => {
+export const getUserByEmail = async (email: string) => {
 	try {
 		const prisma = new PrismaClient();
 		const user = await prisma.user.findUnique({
