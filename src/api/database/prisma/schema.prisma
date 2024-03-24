@@ -38,14 +38,23 @@ model Session {
 }
 
 model Sale {
-  id            String   @id @default(uuid())
+  id            String       @id @default(uuid())
   movementType  String
   operationType String?
   bankEntity    String?
   debitNote     String?
   description   String?
   totalAmount   Decimal
-  createdAt     DateTime @default(now())
-  user          User     @relation(fields: [userId], references: [id])
+  createdAt     DateTime     @default(now())
+  user          User         @relation(fields: [userId], references: [id])
   userId        String
+  movement      MovementType @relation(fields: [movementId], references: [id])
+  movementId    String
+}
+
+model MovementType {
+  id     String @id @default(uuid())
+  nameEs String
+  nameEn String
+  sales  Sale[]
 }
