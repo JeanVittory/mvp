@@ -28,7 +28,8 @@
 		"dotenv": "16.4.5",
 		"express": "4.18.3",
 		"joi": "17.12.2",
-		"jsonwebtoken": "9.0.2"
+		"jsonwebtoken": "9.0.2",
+		"node-cron": "^3.0.3"
 	},
 	"prisma": {
 		"schema": "./src/api/database/prisma/schema.prisma"
