@@ -7,7 +7,7 @@
 		"start": "node build/index.js",
 		"tsc": "tsc",
 		"prisma:studio": "npx prisma studio",
-		"prisma:seeders": "ts-node-dev ./src/api/database/seeders/users/register.seeders.ts",
+		"prisma:seeders": "ts-node-dev ./src/api/database/seeders/users/register.seeders.ts && ts-node-dev ./src/api/database/seeders/movementTypes/movementType.seeders.ts && ts-node-dev ./src/api/database/seeders/operationType/operationType.seeders.ts && ts-node-dev ./src/api/database/seeders/financialEntity/financialEntity.seeders.ts && ts-node-dev ./src/api/database/seeders/sales/sales.seeders.ts",
 		"prisma:migrate:dev": "npx prisma migrate dev",
 		"prisma:reset": "npx prisma migrate reset"
 	},

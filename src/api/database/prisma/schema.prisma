@@ -26,35 +26,53 @@ model User {
 model Password {
   id     String @id @default(uuid())
   pass   String
-  user   User   @relation(fields: [userId], references: [id])
+  User   User   @relation(fields: [userId], references: [id])
   userId String @unique
 }
 
 model Session {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  userName String
-  valid    Boolean @default(true)
+  id        String   @id @default(uuid())
+  email     String   @unique
+  userName  String
+  valid     Boolean  @default(true)
+  createdAt DateTime @default(now())
 }
 
 model Sale {
-  id            String       @id @default(uuid())
-  movementType  String
-  operationType String?
-  bankEntity    String?
-  debitNote     String?
-  description   String?
-  totalAmount   Decimal
-  createdAt     DateTime     @default(now())
-  user          User         @relation(fields: [userId], references: [id])
-  userId        String
-  movement      MovementType @relation(fields: [movementId], references: [id])
-  movementId    String
+  id                String           @id @default(uuid())
+  debitNote         Decimal?
+  description       String?
+  totalAmount       Decimal
+  User              User             @relation(fields: [userId], references: [id])
+  userId            String
+  MovementType      MovementType     @relation(fields: [movementId], references: [id])
+  movementId        String
+  OperationType     OperationType?   @relation(fields: [operationTypeId], references: [id])
+  operationTypeId   String?
+  FinancialEntity   FinancialEntity? @relation(fields: [financialEntityId], references: [id])
+  financialEntityId String?
+  createdAt         DateTime         @default(now())
 }
 
 model MovementType {
-  id     String @id @default(uuid())
-  nameEs String
-  nameEn String
-  sales  Sale[]
+  id        String   @id @default(uuid())
+  nameEs    String
+  nameEn    String
+  sales     Sale[]
+  createdAt DateTime @default(now())
+}
+
+model OperationType {
+  id        String   @id @default(uuid())
+  nameEs    String
+  nameEn    String
+  sales     Sale[]
+  createdAt DateTime @default(now())
+}
+
+model FinancialEntity {
+  id        String   @id @default(uuid())
+  name      String
+  sales     Sale[]
+  createdAt DateTime @default(now())
 }

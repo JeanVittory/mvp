@@ -13,6 +13,7 @@ export const authorizationMiddleware = async (
 	next: NextFunction
 ): Promise<void> => {
 	if (!req.headers.authorization) return next(ApiError.Forbbiden());
+	if (!req.headers['x-refresh-token']) return next(ApiError.Forbbiden());
 	const ACCESS_TOKEN = req.headers.authorization.split(' ')[1] as string;
 	const REFRESH_TOKEN = req.headers['x-refresh-token'];
 	const { error: isValidAccessToken } = authorizationSchema.validate(ACCESS_TOKEN);

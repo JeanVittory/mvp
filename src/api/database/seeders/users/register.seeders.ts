@@ -28,7 +28,7 @@ const savePassword = async (encryptedPassword: string, id: string) => {
 		await prisma.password.create({
 			data: {
 				pass: encryptedPassword,
-				user: { connect: { id } },
+				User: { connect: { id } },
 			},
 		});
 	} catch (error) {

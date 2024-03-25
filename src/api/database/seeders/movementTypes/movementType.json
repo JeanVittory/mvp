@@ -1,0 +1,14 @@
+[
+	{
+		"nameEs": "Egreso",
+		"nameEn": "Outcome"
+	},
+	{
+		"nameEs": "Ingreso Electrónico",
+		"nameEn": "Electronic Payment"
+	},
+	{
+		"nameEs": "Ingreso en Efectivo",
+		"nameEn": "Cash Payment"
+	}
+]
