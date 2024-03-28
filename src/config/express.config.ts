@@ -2,12 +2,14 @@ import express from 'express';
 import { Request, Response, NextFunction, urlencoded } from 'express';
 import { routesConfiguration } from './router.config';
 import { errorHandler } from './errors/errorHandler.config';
+import { cleanSessions } from '../api/services/cron.service';
 import cookieParser from 'cookie-parser';
 
 export const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: false }));
+cleanSessions.start();
 routesConfiguration(app);
 app.use(errorHandler);
 app.use((_err: Error, _req: Request, res: Response, _next: NextFunction): void => {

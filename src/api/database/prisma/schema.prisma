@@ -32,7 +32,7 @@ model Password {
 
 model Session {
   id        String   @id @default(uuid())
-  email     String   @unique
+  email     String
   userName  String
   valid     Boolean  @default(true)
   createdAt DateTime @default(now())
