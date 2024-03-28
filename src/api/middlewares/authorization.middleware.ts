@@ -3,9 +3,10 @@ import { ApiError } from '../../config/errors/apiError.config';
 import { authorizationSchema } from '../validators/authorization.validators';
 import { verifyJWT } from '../utils/verifyJwtToken.utils';
 import { JsonWebTokenError } from 'jsonwebtoken';
-import { getSession } from '../services/sessions.service';
+import { getSessionById } from '../services/sessions.service';
 import { signJwtToken } from '../utils/signJwtToken.utils';
 import { REFRESH_TOKEN_EXP_TIME } from '../constants';
+import { getUserByEmail } from '../services/user.service';
 
 export const authorizationMiddleware = async (
 	req: Request,
@@ -31,11 +32,18 @@ export const authorizationMiddleware = async (
 		if (!refresh) {
 			return next(ApiError.Unauthorized());
 		}
-		const session = await getSession(refresh.sessionId);
+		const session = await getSessionById(refresh.sessionId);
 		if (!session) {
 			return next(ApiError.Unauthorized());
 		}
-		const newAccessToken = signJwtToken(session, REFRESH_TOKEN_EXP_TIME);
+		const { id, userEmail, userName } = await getUserByEmail(session.email);
+		const newAccessTokenPayload = {
+			userEmail,
+			userName,
+			sessionId: session.id,
+			userId: id,
+		};
+		const newAccessToken = signJwtToken(newAccessTokenPayload, REFRESH_TOKEN_EXP_TIME);
 		//@ts-ignore
 		req.user = verifyJWT(newAccessToken).payload;
 		req.headers.authorization = `Bearer ${newAccessToken}`;

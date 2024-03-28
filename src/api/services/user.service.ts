@@ -7,6 +7,7 @@ export const getUserByEmail = async (email: string) => {
 		const user = await prisma.user.findUnique({
 			where: { email },
 			select: {
+				id: true,
 				email: true,
 				userName: true,
 				password: { select: { pass: true } },
@@ -15,6 +16,7 @@ export const getUserByEmail = async (email: string) => {
 		if (!user) throw ApiError.NotFound();
 		const pass = user.password?.pass || null;
 		const userWithPassword = {
+			id: user.id,
 			userEmail: user.email,
 			userName: user.userName,
 			userPassword: pass,

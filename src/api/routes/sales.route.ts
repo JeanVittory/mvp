@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import { registerSoldProduct } from '../controllers/sales/registerSoldProduct.controllers.';
+import { registerOutflows } from '../controllers/sales/registerOutflows.controllers';
+import { validateOutflowMiddleware } from '../middlewares/validateOutflow.middleware';
+import { authorizationMiddleware } from '../middlewares/authorization.middleware';
 
 const salesRouter = Router();
 
-salesRouter.post('/', registerSoldProduct);
+salesRouter.post('/outflows', authorizationMiddleware, validateOutflowMiddleware, registerOutflows);
 
 export { salesRouter };

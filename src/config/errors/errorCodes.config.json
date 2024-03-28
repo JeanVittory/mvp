@@ -4,5 +4,11 @@
 			"CODE": "100",
 			"MESSAGE": "Invalid information."
 		}
+	},
+	"sale": {
+		"REGISTER_SALE_INVALID": {
+			"CODE": "101",
+			"MESSAGE": "Some values of your sale are being undefined."
+		}
 	}
 }

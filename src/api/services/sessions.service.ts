@@ -18,7 +18,7 @@ export const createSession = async (email: string, userName: string) => {
 	}
 };
 
-export const getSession = async (sessionId: string) => {
+export const getSessionById = async (sessionId: string) => {
 	try {
 		const prisma = new PrismaClient();
 		return await prisma.session.findFirst({ where: { AND: { id: sessionId, valid: true } } });
@@ -27,7 +27,7 @@ export const getSession = async (sessionId: string) => {
 	}
 };
 
-export const deleteSession = async (sessionId: string) => {
+export const deleteSessionById = async (sessionId: string) => {
 	try {
 		const prisma = new PrismaClient();
 		return await prisma.session.delete({ where: { id: sessionId }, select: { id: true } });

@@ -1,5 +1,6 @@
 export interface IJwtPayloadToSignToken {
-	id: string;
+	sessionId: string;
+	userId: string;
 	userEmail: string;
 	userName: string;
 }

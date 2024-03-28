@@ -19,7 +19,7 @@ model User {
   userName   String
   email      String    @unique
   password   Password?
-  sales      Sale[]
+  Outflow    Outflow[]
   createdAt  DateTime  @default(now())
 }
 
@@ -38,20 +38,13 @@ model Session {
   createdAt DateTime @default(now())
 }
 
-model Sale {
-  id                String           @id @default(uuid())
-  debitNote         Decimal?
-  description       String?
-  totalAmount       Decimal
-  User              User             @relation(fields: [userId], references: [id])
-  userId            String
-  MovementType      MovementType     @relation(fields: [movementId], references: [id])
-  movementId        String
-  OperationType     OperationType?   @relation(fields: [operationTypeId], references: [id])
-  operationTypeId   String?
-  FinancialEntity   FinancialEntity? @relation(fields: [financialEntityId], references: [id])
-  financialEntityId String?
-  createdAt         DateTime         @default(now())
+model Outflow {
+  id          String   @id @default(uuid())
+  description String
+  totalAmount Decimal
+  User        User     @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime @default(now())
 }
 
 model MovementType {
@@ -75,4 +68,18 @@ model FinancialEntity {
   name      String
   sales     Sale[]
   createdAt DateTime @default(now())
+}
+
+model Sale {
+  id                String           @id @default(uuid())
+  debitNote         Decimal?
+  description       String?
+  totalAmount       Decimal
+  MovementType      MovementType     @relation(fields: [movementId], references: [id])
+  movementId        String
+  OperationType     OperationType?   @relation(fields: [operationTypeId], references: [id])
+  operationTypeId   String?
+  FinancialEntity   FinancialEntity? @relation(fields: [financialEntityId], references: [id])
+  financialEntityId String?
+  createdAt         DateTime         @default(now())
 }
