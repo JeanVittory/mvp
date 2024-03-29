@@ -6,9 +6,15 @@
 		}
 	},
 	"sale": {
-		"REGISTER_SALE_INVALID": {
-			"CODE": "101",
-			"MESSAGE": "Some values of your sale are being undefined."
+		"INVALID_ELECTRONIC_SALE": {
+			"CODE": "101.1",
+			"MESSAGE": "Some values of your electronic sale are being undefined."
+		}
+	},
+	"outflows": {
+		"INVALID_OUTFLOW": {
+			"CODE": "102.1",
+			"MESSAGE": "Some values of your outflow are being undefined."
 		}
 	}
 }
