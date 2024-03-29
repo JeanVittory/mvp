@@ -51,35 +51,39 @@ model MovementType {
   id        String   @id @default(uuid())
   nameEs    String
   nameEn    String
-  sales     Sale[]
   createdAt DateTime @default(now())
 }
 
 model OperationType {
-  id        String   @id @default(uuid())
-  nameEs    String
-  nameEn    String
-  sales     Sale[]
-  createdAt DateTime @default(now())
+  id             String           @id @default(uuid())
+  nameEs         String
+  nameEn         String
+  ElectronicSale ElectronicSale[]
+  createdAt      DateTime         @default(now())
 }
 
 model FinancialEntity {
-  id        String   @id @default(uuid())
-  name      String
-  sales     Sale[]
-  createdAt DateTime @default(now())
+  id             String           @id @default(uuid())
+  name           String
+  ElectronicSale ElectronicSale[]
+  createdAt      DateTime         @default(now())
+}
+
+model ElectronicSale {
+  id                String          @id @default(uuid())
+  OperationType     OperationType   @relation(fields: [operationTypeId], references: [id])
+  operationTypeId   String
+  FinancialEntity   FinancialEntity @relation(fields: [financialEntityId], references: [id])
+  financialEntityId String
+  debitNote         Decimal
+  totalAmount       Decimal
+  createdAt         DateTime        @default(now())
 }
 
 model Sale {
-  id                String           @id @default(uuid())
-  debitNote         Decimal?
-  description       String?
-  totalAmount       Decimal
-  MovementType      MovementType     @relation(fields: [movementId], references: [id])
-  movementId        String
-  OperationType     OperationType?   @relation(fields: [operationTypeId], references: [id])
-  operationTypeId   String?
-  FinancialEntity   FinancialEntity? @relation(fields: [financialEntityId], references: [id])
-  financialEntityId String?
-  createdAt         DateTime         @default(now())
+  id          String   @id @default(uuid())
+  debitNote   Decimal?
+  description String?
+  totalAmount Decimal
+  createdAt   DateTime @default(now())
 }
