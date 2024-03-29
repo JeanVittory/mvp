@@ -14,13 +14,14 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
-  enterprise String
-  userName   String
-  email      String    @unique
-  password   Password?
-  Outflow    Outflow[]
-  createdAt  DateTime  @default(now())
+  id             String           @id @default(uuid())
+  enterprise     String
+  userName       String
+  email          String           @unique
+  password       Password?
+  Outflow        Outflow[]
+  ElectronicSale ElectronicSale[]
+  createdAt      DateTime         @default(now())
 }
 
 model Password {
@@ -71,6 +72,8 @@ model FinancialEntity {
 
 model ElectronicSale {
   id                String          @id @default(uuid())
+  User              User            @relation(fields: [userId], references: [id])
+  userId            String
   OperationType     OperationType   @relation(fields: [operationTypeId], references: [id])
   operationTypeId   String
   FinancialEntity   FinancialEntity @relation(fields: [financialEntityId], references: [id])
