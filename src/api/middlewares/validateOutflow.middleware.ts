@@ -12,7 +12,7 @@ export const validateOutflowMiddleware = async (
 		const { error } = outflowSchema.validate(req.body);
 		if (error)
 			return ApiError.BadRequest(
-				`${errorCode.sale.REGISTER_SALE_INVALID.CODE}:${errorCode.sale.REGISTER_SALE_INVALID.MESSAGE}`
+				`${errorCode.outflows.INVALID_OUTFLOW.CODE}:${errorCode.outflows.INVALID_OUTFLOW.MESSAGE}`
 			);
 		next();
 	} catch (error) {
