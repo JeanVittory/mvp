@@ -1,10 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+import { ElectronicSale, PrismaClient } from '@prisma/client';
 import { IElectronicIncomePayload } from '../interfaces/electronicIncomePayload.interface';
 
 export const createElectronicIncome = async (
 	{ financialEntity, operationType, totalAmount, debitNote }: IElectronicIncomePayload,
 	userId: string
-) => {
+): Promise<ElectronicSale> => {
 	try {
 		const prisma = new PrismaClient();
 		return await prisma.electronicSale.create({

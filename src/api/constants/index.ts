@@ -7,8 +7,13 @@ export const EGRESO = 'Egreso';
 export const OUTCOME = 'Outcome';
 export const ELECTRONIC_PAYMENT = 'Electronic Payment';
 export const INGRESO_ELECTRONICO = 'Ingreso Electrónico';
+export const INGRESO_EFECTIVO = 'Ingreso en Efectivo';
+export const CASH_PAYMENT = 'Cash Payment';
 
 export const TRANSFERENCE = 'Transference';
 export const TRANSFERENCIA = 'Transferencia';
 export const DEBIT = 'Debit';
 export const DEBITO = 'Débito';
+
+export const OK = 200;
+export const CREATED = 201;

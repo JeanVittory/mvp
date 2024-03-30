@@ -21,6 +21,7 @@ model User {
   password       Password?
   Outflow        Outflow[]
   ElectronicSale ElectronicSale[]
+  CashIncome     CashIncome[]
   createdAt      DateTime         @default(now())
 }
 
@@ -81,6 +82,15 @@ model ElectronicSale {
   debitNote         Decimal
   totalAmount       Decimal
   createdAt         DateTime        @default(now())
+}
+
+model CashIncome {
+  id          String   @id @default(uuid())
+  User        User     @relation(fields: [userId], references: [id])
+  userId      String
+  totalAmount Decimal
+  debitNote   Decimal
+  createdAt   DateTime @default(now())
 }
 
 model Sale {

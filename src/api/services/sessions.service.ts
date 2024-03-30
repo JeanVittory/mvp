@@ -1,7 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Session } from '@prisma/client';
 import { ApiError } from '../../config/errors/apiError.config';
 
-export const createSession = async (email: string, userName: string) => {
+export const createSession = async (
+	email: string,
+	userName: string
+): Promise<Pick<Session, 'id'>> => {
 	try {
 		const prisma = new PrismaClient();
 		return await prisma.session.create({
@@ -18,7 +21,7 @@ export const createSession = async (email: string, userName: string) => {
 	}
 };
 
-export const getSessionById = async (sessionId: string) => {
+export const getSessionById = async (sessionId: string): Promise<Session | null> => {
 	try {
 		const prisma = new PrismaClient();
 		return await prisma.session.findFirst({ where: { AND: { id: sessionId, valid: true } } });
@@ -27,7 +30,7 @@ export const getSessionById = async (sessionId: string) => {
 	}
 };
 
-export const deleteSessionById = async (sessionId: string) => {
+export const deleteSessionById = async (sessionId: string): Promise<Pick<Session, 'id'>> => {
 	try {
 		const prisma = new PrismaClient();
 		return await prisma.session.delete({ where: { id: sessionId }, select: { id: true } });

@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
-import { createOutflow } from '../../services/outflows.service';
+import { createElectronicIncome } from '../../services/electronicIncomes.service';
+import { CREATED } from '../../constants';
 
-export const registerOutflows = async (
+export const registerElectronicIncome = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -10,8 +11,8 @@ export const registerOutflows = async (
 	try {
 		// @ts-ignore
 		const { userId } = req.user.payload;
-		const { id } = await createOutflow(req.body, userId);
-		res.status(201).json({ id });
+		const { id } = await createElectronicIncome(req.body, userId);
+		res.status(CREATED).json({ id });
 	} catch (error) {
 		errorCatcher(error, next);
 	}

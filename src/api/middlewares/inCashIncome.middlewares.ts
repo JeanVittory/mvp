@@ -1,19 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiError } from '../../config/errors/apiError.config';
 import * as errorCode from '../../config/errors/errorCodes.config.json';
-import { electronicIncomeSchema } from '../validators/electronicIncome.validators';
+import { inCashIncomeSchema } from '../validators/inCashIncome.validators';
 
-export const electronicIncomeMiddleware = async (
+export const inCashIncomeMiddleware = async (
 	req: Request,
 	_res: Response,
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { error } = electronicIncomeSchema.validate(req.body);
+		const { error } = inCashIncomeSchema.validate(req.body);
 		if (error)
 			next(
 				ApiError.BadRequest(
-					`${errorCode.sale.INVALID_ELECTRONIC_SALE.CODE}:${errorCode.sale.INVALID_ELECTRONIC_SALE.MESSAGE}`
+					`${errorCode.sale.INVALID_CASH_SALE.CODE}:${errorCode.sale.INVALID_CASH_SALE.MESSAGE}`
 				)
 			);
 		next();

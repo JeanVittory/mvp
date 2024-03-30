@@ -9,6 +9,10 @@
 		"INVALID_ELECTRONIC_SALE": {
 			"CODE": "101.1",
 			"MESSAGE": "Some values of your electronic sale are being undefined."
+		},
+		"INVALID_CASH_SALE": {
+			"CODE": "101.2",
+			"MESSAGE": "Some values of your in-cash sale are being undefined."
 		}
 	},
 	"outflows": {
