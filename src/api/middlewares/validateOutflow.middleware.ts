@@ -11,8 +11,10 @@ export const validateOutflowMiddleware = async (
 	try {
 		const { error } = outflowSchema.validate(req.body);
 		if (error)
-			return ApiError.BadRequest(
-				`${errorCode.outflows.INVALID_OUTFLOW.CODE}:${errorCode.outflows.INVALID_OUTFLOW.MESSAGE}`
+			return next(
+				ApiError.BadRequest(
+					`${errorCode.outflows.INVALID_OUTFLOW.CODE}: ${errorCode.outflows.INVALID_OUTFLOW.MESSAGE}`
+				)
 			);
 		next();
 	} catch (error) {

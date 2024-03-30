@@ -1,11 +1,26 @@
 import Joi from 'joi';
-import { EGRESO, OUTCOME } from '../constants/index';
+import {
+	DEBIT,
+	DEBITO,
+	ELECTRONIC_PAYMENT,
+	INGRESO_ELECTRONICO,
+	TRANSFERENCE,
+	TRANSFERENCIA,
+} from '../constants/index';
 
 export const electronicIncomeSchema = Joi.object({
-	description: Joi.string().required(),
 	totalAmount: Joi.number().required(),
+	debitNote: Joi.number().required(),
+	financialEntity: Joi.object({
+		id: Joi.string().required(),
+		name: Joi.string().required(),
+	}).required(),
 	movementType: Joi.object({
 		id: Joi.string().required(),
-		name: Joi.string().required().valid(EGRESO, OUTCOME),
-	}),
+		name: Joi.string().required().valid(ELECTRONIC_PAYMENT, INGRESO_ELECTRONICO),
+	}).required(),
+	operationType: Joi.object({
+		id: Joi.string().required(),
+		name: Joi.string().required().valid(TRANSFERENCE, TRANSFERENCIA, DEBIT, DEBITO),
+	}).required(),
 });

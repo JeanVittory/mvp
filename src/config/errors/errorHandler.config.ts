@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiError } from './apiError.config';
 
-export const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-	if (err instanceof ApiError) {
-		res.status(err.status).send(err.message);
+export const errorHandler = (error: Error, _req: Request, res: Response, _next: NextFunction) => {
+	if (error instanceof ApiError) {
+		res.status(error.status).send(error.message);
 	} else {
-		res.status(500).send('Internal Server Error');
+		console.log(error);
+		res.status(500).send(`Internal Server Error: ${error}`);
 	}
 };

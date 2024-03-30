@@ -11,11 +11,14 @@ export const validateElectronicIncome = async (
 	try {
 		const { error } = electronicIncomeSchema.validate(req.body);
 		if (error)
-			ApiError.BadRequest(
-				`${errorCode.sale.INVALID_ELECTRONIC_SALE.CODE}:${errorCode.sale.INVALID_ELECTRONIC_SALE.MESSAGE}`
+			next(
+				ApiError.BadRequest(
+					`${errorCode.sale.INVALID_ELECTRONIC_SALE.CODE}:${errorCode.sale.INVALID_ELECTRONIC_SALE.MESSAGE}`
+				)
 			);
 		next();
 	} catch (error) {
-		next(ApiError.Internal('Unknown Error'));
+		console.log(error);
+		next(ApiError.Internal(`Unknown Error: ${error}`));
 	}
 };

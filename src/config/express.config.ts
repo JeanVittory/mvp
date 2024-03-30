@@ -12,6 +12,7 @@ app.use(urlencoded({ extended: false }));
 cleanSessions.start();
 routesConfiguration(app);
 app.use(errorHandler);
-app.use((_err: Error, _req: Request, res: Response, _next: NextFunction): void => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction): void => {
+	console.log(err);
 	res.status(500).send('Internal Server Error');
 });

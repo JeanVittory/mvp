@@ -7,5 +7,5 @@ export const outflowSchema = Joi.object({
 	movementType: Joi.object({
 		id: Joi.string().required(),
 		name: Joi.string().required().valid(EGRESO, OUTCOME),
-	}),
+	}).required(),
 });
