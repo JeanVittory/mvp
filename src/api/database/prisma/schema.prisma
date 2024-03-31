@@ -93,6 +93,15 @@ model CashIncome {
   createdAt   DateTime @default(now())
 }
 
+model CashCount {
+  id           String   @id @default(uuid())
+  denomination Decimal
+  currencyType String
+  count        Int
+  total        Decimal
+  createdAt    DateTime @default(now())
+}
+
 model Sale {
   id          String   @id @default(uuid())
   debitNote   Decimal?
