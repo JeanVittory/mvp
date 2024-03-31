@@ -21,7 +21,11 @@ export const createOutflow = async (
 	}
 };
 
-export const getOutflowsByUserId = async (userId: string): Promise<IOutflowWithType[]> => {
+export const getOutflowsByUserId = async (
+	userId: string,
+	page: number,
+	pageSize: number
+): Promise<IOutflowWithType[]> => {
 	try {
 		const prisma = new PrismaClient();
 		const result = await prisma.outflow.findMany({
@@ -33,6 +37,8 @@ export const getOutflowsByUserId = async (userId: string): Promise<IOutflowWithT
 				description: true,
 				createdAt: true,
 			},
+			skip: (page - 1) * pageSize,
+			take: pageSize,
 		});
 		return result.map((item) => ({ ...item, type: OUTCOME }));
 	} catch (error) {

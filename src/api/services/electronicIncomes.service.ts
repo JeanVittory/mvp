@@ -24,7 +24,9 @@ export const createElectronicIncome = async (
 };
 
 export const getElectronicIncomesByUserId = async (
-	userId: string
+	userId: string,
+	page: number,
+	pageSize: number
 ): Promise<IElectronicIncomeWithType[]> => {
 	try {
 		const prisma = new PrismaClient();
@@ -39,6 +41,8 @@ export const getElectronicIncomesByUserId = async (
 				debitNote: true,
 				createdAt: true,
 			},
+			skip: (page - 1) * pageSize,
+			take: pageSize,
 		});
 		return result.map((item) => ({ ...item, type: ELECTRONIC_PAYMENT }));
 	} catch (error) {

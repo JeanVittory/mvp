@@ -20,5 +20,15 @@
 			"CODE": "102.1",
 			"MESSAGE": "Some values of your outflow are being undefined."
 		}
+	},
+	"pagination": {
+		"INVALID_PAGINATION_REQUEST": {
+			"CODE": "103.1",
+			"MESSAGE": "You should provide a page and pageSize values to paginate the transactions."
+		},
+		"INVALID_PAGINATION_VALUES": {
+			"CODE": "103.2",
+			"MESSAGE": "Invalid pagination parameters. Page and pageSize must be positive integers."
+		}
 	}
 }

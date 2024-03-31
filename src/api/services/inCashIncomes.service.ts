@@ -22,7 +22,9 @@ export const createIncashIncome = async (
 };
 
 export const getIncashIncomesByUserId = async (
-	userId: string
+	userId: string,
+	page: number,
+	pageSize: number
 ): Promise<IIncashIncomeWithType[]> => {
 	try {
 		const prisma = new PrismaClient();
@@ -35,6 +37,8 @@ export const getIncashIncomesByUserId = async (
 				debitNote: true,
 				createdAt: true,
 			},
+			skip: (page - 1) * pageSize,
+			take: pageSize,
 		});
 		return result.map((item) => ({ ...item, type: CASH_PAYMENT }));
 	} catch (error) {

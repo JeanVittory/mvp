@@ -18,7 +18,6 @@ export const inCashIncomeMiddleware = async (
 			);
 		next();
 	} catch (error) {
-		console.log(error);
 		next(ApiError.Internal(`Unknown Error: ${error}`));
 	}
 };

@@ -7,10 +7,11 @@ import { registerElectronicIncome } from '../controllers/transactions/registerEl
 import { inCashIncomeMiddleware } from '../middlewares/inCashIncome.middlewares';
 import { registerIncashIncome } from '../controllers/transactions/registerIncashIncome.controllers';
 import { allTransactions } from '../controllers/transactions/getAllTransactions.controllers';
+import { paginationMiddleware } from '../middlewares/paginationValidator.middleware';
 
 const transactionRouter = Router();
 
-transactionRouter.get('/all', authorizationMiddleware, allTransactions);
+transactionRouter.get('/all', authorizationMiddleware, paginationMiddleware, allTransactions);
 
 transactionRouter.post(
 	'/outflows',
