@@ -30,5 +30,15 @@
 			"CODE": "103.2",
 			"MESSAGE": "Invalid pagination parameters. Page and pageSize must be positive integers."
 		}
+	},
+	"filters": {
+		"INVALID_FILTER_REQUEST": {
+			"CODE": "104.1",
+			"MESSAGE": "Invalid filter parameters. Some filter parameter must be selected."
+		},
+		"INVALID_PARAMETER": {
+			"CODE": "104.2",
+			"MESSAGE": "Invalid parameter. Some value provided is not valid."
+		}
 	}
 }
