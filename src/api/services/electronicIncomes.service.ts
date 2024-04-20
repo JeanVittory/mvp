@@ -62,6 +62,23 @@ export const getElectronicIncomesFiltered = async (
 
 		const filter: any = { userId };
 
+		if (!dateStart && !dateEnd && !amount && !finantialEntity && operationType) {
+			const result = await prisma.electronicSale.findMany({
+				where: filter,
+				select: {
+					totalAmount: true,
+					OperationType: { select: { nameEn: true, nameEs: true } },
+					FinancialEntity: { select: { name: true } },
+					debitNote: true,
+					createdAt: true,
+				},
+				skip: (page - 1) * pageSize,
+				take: pageSize,
+				orderBy: { createdAt: 'desc' },
+			});
+			return result.map((item) => ({ ...item, type: ELECTRONIC_PAYMENT }));
+		}
+
 		if (dateStart && dateEnd) {
 			filter.createdAt = { gte: new Date(dateStart), lte: new Date(dateEnd) };
 		}
@@ -71,12 +88,12 @@ export const getElectronicIncomesFiltered = async (
 		}
 
 		if (finantialEntity) {
-			filter.FinantialEntity = { name: finantialEntity };
+			filter.FinancialEntity = { name: { in: finantialEntity } };
 		}
 
 		if (operationType) {
 			filter.OperationType = {
-				OR: [{ nameEn: { contains: operationType } }, { nameEs: { contains: operationType } }],
+				OR: [{ nameEn: { in: operationType } }, { nameEs: { in: operationType } }],
 			};
 		}
 

@@ -58,6 +58,20 @@ export const getOutflowsFiltered = async (
 
 		const filter: any = { userId };
 
+		if (!dateStart && !dateEnd && !amount) {
+			const result = await prisma.outflow.findMany({
+				where: filter,
+				select: {
+					totalAmount: true,
+					description: true,
+					createdAt: true,
+				},
+				skip: (page - 1) * pageSize,
+				take: pageSize,
+				orderBy: { createdAt: 'desc' },
+			});
+			return result.map((item) => ({ ...item, type: OUTCOME }));
+		}
 		if (dateStart && dateEnd) {
 			filter.createdAt = { gte: new Date(dateStart), lte: new Date(dateEnd) };
 		}

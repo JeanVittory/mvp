@@ -15,5 +15,9 @@ export const TRANSFERENCIA = 'Transferencia';
 export const DEBIT = 'Debit';
 export const DEBITO = 'Débito';
 
+export const NEQUI = 'Nequi';
+export const DAVIPLATA = 'Daviplata';
+export const BANCOLOMBIA = 'Bancolombia';
+
 export const OK = 200;
 export const CREATED = 201;

@@ -1,7 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
 import { getElectronicIncomesFiltered } from '../../services/electronicIncomes.service';
-import { ELECTRONIC_PAYMENT, INGRESO_ELECTRONICO, OK } from '../../constants';
+import {
+	CASH_PAYMENT,
+	INGRESO_EFECTIVO,
+	EGRESO,
+	OUTCOME,
+	ELECTRONIC_PAYMENT,
+	INGRESO_ELECTRONICO,
+	OK,
+} from '../../constants';
 import { getInCashIncomesFiltered } from '../../services/inCashIncomes.service';
 import { paginationFormater } from '../../utils/paginationFormater.utils';
 import { getOutflowsFiltered } from '../../services/outflows.service';
@@ -15,7 +23,10 @@ export const transactionsByFilter = async (req: Request, res: Response, next: Ne
 		const pageSize = (req.query.pageSize as string) || '10';
 
 		const { startDate, endDate, operationType, finantialEntity, amount, movementType } = req.body;
+
 		const { page: pageFormatted, pageSize: pageSizeFormatted } = paginationFormater(page, pageSize);
+		let response: any = [];
+
 		if (!operationType && !finantialEntity && !movementType && (startDate || endDate || amount)) {
 			const [electronicIncomes, inCashIncomes, outflows] = await Promise.all([
 				getElectronicIncomesFiltered(userId, pageFormatted, pageSizeFormatted, req.body),
@@ -32,11 +43,29 @@ export const transactionsByFilter = async (req: Request, res: Response, next: Ne
 		if (
 			operationType ||
 			finantialEntity ||
-			movementType === INGRESO_ELECTRONICO ||
-			movementType === ELECTRONIC_PAYMENT
+			movementType.includes(INGRESO_ELECTRONICO) ||
+			movementType.includes(ELECTRONIC_PAYMENT)
 		) {
-			await getElectronicIncomesFiltered(userId, +page, +pageSize, req.body);
+			const result = await getElectronicIncomesFiltered(userId, +page, +pageSize, req.body);
+			const mergedAndSortedTransactions = mergeAndSortObjects(result);
+			response = [...response, ...mergedAndSortedTransactions];
 		}
+
+		if (movementType.includes(EGRESO) || movementType.includes(OUTCOME)) {
+			const result = await getOutflowsFiltered(userId, +page, +pageSize, req.body);
+			const mergedAndSortedTransactions = mergeAndSortObjects(result);
+
+			response = [...response, ...mergedAndSortedTransactions];
+		}
+
+		if (movementType.includes(INGRESO_EFECTIVO) || movementType.includes(CASH_PAYMENT)) {
+			const result = await getInCashIncomesFiltered(userId, +page, +pageSize, req.body);
+			const mergedAndSortedTransactions = mergeAndSortObjects(result);
+
+			response = [...response, ...mergedAndSortedTransactions];
+		}
+
+		res.status(OK).json(response);
 	} catch (error) {
 		errorCatcher(error, next);
 	}

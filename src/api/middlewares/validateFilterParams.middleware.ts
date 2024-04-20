@@ -10,6 +10,9 @@ export const ValidateFilterParamsMiddleware = (
 ): void => {
 	try {
 		const { startDate, endDate, operationType, finantialEntity, amount, movementType } = req.query;
+		let movementTypeFormated: string[] = [];
+		let finantialEntityFormated: string[] = [];
+		let operationTypeFormated: string[] = [];
 
 		if (!startDate && !endDate && !operationType && !finantialEntity && !amount && !movementType) {
 			return next(
@@ -27,23 +30,42 @@ export const ValidateFilterParamsMiddleware = (
 			);
 		}
 
-		if (movementType) {
-			// to be continued...
-			// Los campos movementType, OpType y finantialEntity son selecciones multiples
-			// se deben formatear a tipo array
-			// continuar con el filtrado y hacer pruebas
+		if (movementType && !(typeof movementType === 'string')) {
+			return next(
+				ApiError.BadRequest(
+					`${errorCode.filters.INVALID_PARAMETER.CODE}: ${errorCode.filters.INVALID_PARAMETER.MESSAGE}`
+				)
+			);
 		}
+		if (movementType) movementTypeFormated = movementType.split(',');
+
+		if (finantialEntity && !(typeof finantialEntity === 'string')) {
+			return next(
+				ApiError.BadRequest(
+					`${errorCode.filters.INVALID_PARAMETER.CODE}: ${errorCode.filters.INVALID_PARAMETER.MESSAGE}`
+				)
+			);
+		}
+		if (finantialEntity) finantialEntityFormated = finantialEntity.split(',');
+
+		if (operationType && !(typeof operationType === 'string')) {
+			return next(
+				ApiError.BadRequest(
+					`${errorCode.filters.INVALID_PARAMETER.CODE}: ${errorCode.filters.INVALID_PARAMETER.MESSAGE}`
+				)
+			);
+		}
+		if (operationType) operationTypeFormated = operationType.split(',');
 
 		const filterQuery = {
 			...(startDate && { startDate }),
 			...(endDate && { endDate }),
-			...(operationType && { operationType }),
-			...(finantialEntity && { finantialEntity }),
+			...(operationTypeFormated.length && { operationType: operationTypeFormated }),
+			...(finantialEntityFormated.length && { finantialEntity: finantialEntityFormated }),
 			...(amount && { amount }),
-			...(movementType && { movementType }),
+			...(movementTypeFormated.length && { movementType: movementTypeFormated }),
 		};
 		const { error } = transactionFilterSchema.validate(filterQuery);
-
 		if (error) {
 			return next(
 				ApiError.BadRequest(

@@ -58,6 +58,21 @@ export const getInCashIncomesFiltered = async (
 
 		const filter: any = { userId };
 
+		if (!dateStart && !dateEnd && !amount) {
+			const result = await prisma.cashIncome.findMany({
+				where: filter,
+				select: {
+					totalAmount: true,
+					debitNote: true,
+					createdAt: true,
+				},
+				skip: (page - 1) * pageSize,
+				take: pageSize,
+				orderBy: { createdAt: 'desc' },
+			});
+			return result.map((item) => ({ ...item, type: CASH_PAYMENT }));
+		}
+
 		if (dateStart && dateEnd) {
 			filter.createdAt = { gte: new Date(dateStart), lte: new Date(dateEnd) };
 		}
