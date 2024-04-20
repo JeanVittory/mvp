@@ -2,7 +2,10 @@ import { Outflow, PrismaClient } from '@prisma/client';
 import { IOutflowPayload } from '../interfaces/outflowPayload.interface';
 import { IOutflowWithType } from '../interfaces/outflowsByUserId.interface';
 import { OUTCOME } from '../constants';
-import { ITransactionFilter } from '../interfaces/transactionFilterParameters.interface';
+import {
+	IOutflowsFilterPayloadToPrisma,
+	ITransactionFilter,
+} from '../interfaces/transactionFilterParameters.interface';
 
 export const createOutflow = async (
 	{ description, totalAmount }: IOutflowPayload,
@@ -54,24 +57,12 @@ export const getOutflowsFiltered = async (
 	{ dateStart, dateEnd, amount }: ITransactionFilter
 ) => {
 	try {
-		const prisma = new PrismaClient();
-
-		const filter: any = { userId };
+		const filter: IOutflowsFilterPayloadToPrisma = { userId };
 
 		if (!dateStart && !dateEnd && !amount) {
-			const result = await prisma.outflow.findMany({
-				where: filter,
-				select: {
-					totalAmount: true,
-					description: true,
-					createdAt: true,
-				},
-				skip: (page - 1) * pageSize,
-				take: pageSize,
-				orderBy: { createdAt: 'desc' },
-			});
-			return result.map((item) => ({ ...item, type: OUTCOME }));
+			return await fetchFilteredOutflowsIncomes(filter, page, pageSize);
 		}
+
 		if (dateStart && dateEnd) {
 			filter.createdAt = { gte: new Date(dateStart), lte: new Date(dateEnd) };
 		}
@@ -79,6 +70,20 @@ export const getOutflowsFiltered = async (
 		if (amount) {
 			filter.totalAmount = amount;
 		}
+
+		return await fetchFilteredOutflowsIncomes(filter, page, pageSize);
+	} catch (error) {
+		throw error;
+	}
+};
+
+const fetchFilteredOutflowsIncomes = async (
+	filter: IOutflowsFilterPayloadToPrisma,
+	page: number,
+	pageSize: number
+) => {
+	try {
+		const prisma = new PrismaClient();
 
 		const result = await prisma.outflow.findMany({
 			where: filter,

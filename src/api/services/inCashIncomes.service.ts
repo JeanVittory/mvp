@@ -2,7 +2,10 @@ import { CashIncome, PrismaClient } from '@prisma/client';
 import { ICashIncomePayload } from '../interfaces/inCashIncomePayload.interface';
 import { IIncashIncomeWithType } from '../interfaces/inCashIncomesByUserId.interface';
 import { CASH_PAYMENT } from '../constants';
-import { ITransactionFilter } from '../interfaces/transactionFilterParameters.interface';
+import {
+	IIncashIncomeFilterPayloadToPrisma,
+	ITransactionFilter,
+} from '../interfaces/transactionFilterParameters.interface';
 
 export const createIncashIncome = async (
 	{ totalAmount, debitNote }: ICashIncomePayload,
@@ -54,23 +57,10 @@ export const getInCashIncomesFiltered = async (
 	{ dateStart, dateEnd, amount }: ITransactionFilter
 ) => {
 	try {
-		const prisma = new PrismaClient();
-
-		const filter: any = { userId };
+		const filter: IIncashIncomeFilterPayloadToPrisma = { userId };
 
 		if (!dateStart && !dateEnd && !amount) {
-			const result = await prisma.cashIncome.findMany({
-				where: filter,
-				select: {
-					totalAmount: true,
-					debitNote: true,
-					createdAt: true,
-				},
-				skip: (page - 1) * pageSize,
-				take: pageSize,
-				orderBy: { createdAt: 'desc' },
-			});
-			return result.map((item) => ({ ...item, type: CASH_PAYMENT }));
+			return await fetchFilteredCashIncomes(filter, page, pageSize);
 		}
 
 		if (dateStart && dateEnd) {
@@ -80,6 +70,20 @@ export const getInCashIncomesFiltered = async (
 		if (amount) {
 			filter.totalAmount = amount;
 		}
+
+		return await fetchFilteredCashIncomes(filter, page, pageSize);
+	} catch (error) {
+		throw error;
+	}
+};
+
+const fetchFilteredCashIncomes = async (
+	filter: IIncashIncomeFilterPayloadToPrisma,
+	page: number,
+	pageSize: number
+) => {
+	try {
+		const prisma = new PrismaClient();
 
 		const result = await prisma.cashIncome.findMany({
 			where: filter,

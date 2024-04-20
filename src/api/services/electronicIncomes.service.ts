@@ -2,7 +2,10 @@ import { ElectronicSale, PrismaClient } from '@prisma/client';
 import { IElectronicIncomePayload } from '../interfaces/electronicIncomePayload.interface';
 import { IElectronicIncomeWithType } from '../interfaces/electronicIncomesByUserId.interface';
 import { ELECTRONIC_PAYMENT } from '../constants';
-import { ITransactionFilter } from '../interfaces/transactionFilterParameters.interface';
+import {
+	IElectronicIncomeFilterPayloadToPrisma,
+	ITransactionFilter,
+} from '../interfaces/transactionFilterParameters.interface';
 
 export const createElectronicIncome = async (
 	{ financialEntity, operationType, totalAmount, debitNote }: IElectronicIncomePayload,
@@ -58,25 +61,10 @@ export const getElectronicIncomesFiltered = async (
 	{ dateStart, dateEnd, amount, finantialEntity, operationType }: ITransactionFilter
 ) => {
 	try {
-		const prisma = new PrismaClient();
-
-		const filter: any = { userId };
+		const filter: IElectronicIncomeFilterPayloadToPrisma = { userId };
 
 		if (!dateStart && !dateEnd && !amount && !finantialEntity && operationType) {
-			const result = await prisma.electronicSale.findMany({
-				where: filter,
-				select: {
-					totalAmount: true,
-					OperationType: { select: { nameEn: true, nameEs: true } },
-					FinancialEntity: { select: { name: true } },
-					debitNote: true,
-					createdAt: true,
-				},
-				skip: (page - 1) * pageSize,
-				take: pageSize,
-				orderBy: { createdAt: 'desc' },
-			});
-			return result.map((item) => ({ ...item, type: ELECTRONIC_PAYMENT }));
+			return await fetchFilteredElectronicIncomes(filter, page, pageSize);
 		}
 
 		if (dateStart && dateEnd) {
@@ -96,6 +84,20 @@ export const getElectronicIncomesFiltered = async (
 				OR: [{ nameEn: { in: operationType } }, { nameEs: { in: operationType } }],
 			};
 		}
+
+		return await fetchFilteredElectronicIncomes(filter, page, pageSize);
+	} catch (error) {
+		throw error;
+	}
+};
+
+const fetchFilteredElectronicIncomes = async (
+	filter: IElectronicIncomeFilterPayloadToPrisma,
+	page: number,
+	pageSize: number
+) => {
+	try {
+		const prisma = new PrismaClient();
 
 		const result = await prisma.electronicSale.findMany({
 			where: filter,

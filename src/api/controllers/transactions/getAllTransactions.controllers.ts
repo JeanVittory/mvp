@@ -4,15 +4,15 @@ import { getElectronicIncomesByUserId } from '../../services/electronicIncomes.s
 import { getIncashIncomesByUserId } from '../../services/inCashIncomes.service';
 import { getOutflowsByUserId } from '../../services/outflows.service';
 import { mergeAndSortObjects } from '../../utils/mergeAndSortObjects.utils';
-import { OK } from '../../constants';
+import { DEFAULT_PAGINATION_PAGE, DEFAULT_PAGINATION_PAGE_SIZE, OK } from '../../constants';
 import { paginationFormater } from '../../utils/paginationFormater.utils';
 
 export const allTransactions = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		// @ts-ignore
 		const { userId } = req.user.payload;
-		const page = (req.query.page as string) || '1';
-		const pageSize = (req.query.pageSize as string) || '10';
+		const page = (req.query.page as string) || DEFAULT_PAGINATION_PAGE;
+		const pageSize = (req.query.pageSize as string) || DEFAULT_PAGINATION_PAGE_SIZE;
 		const { page: pageFormatted, pageSize: pageSizeFormatted } = paginationFormater(page, pageSize);
 		const [electronicIncomes, inCashIncomes, outflows] = await Promise.all([
 			getElectronicIncomesByUserId(userId, pageFormatted, pageSizeFormatted),

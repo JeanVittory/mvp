@@ -9,6 +9,8 @@ import {
 	ELECTRONIC_PAYMENT,
 	INGRESO_ELECTRONICO,
 	OK,
+	DEFAULT_PAGINATION_PAGE,
+	DEFAULT_PAGINATION_PAGE_SIZE,
 } from '../../constants';
 import { getInCashIncomesFiltered } from '../../services/inCashIncomes.service';
 import { paginationFormater } from '../../utils/paginationFormater.utils';
@@ -19,8 +21,8 @@ export const transactionsByFilter = async (req: Request, res: Response, next: Ne
 	try {
 		// @ts-ignore
 		const { userId } = req.user.payload;
-		const page = (req.query.page as string) || '1';
-		const pageSize = (req.query.pageSize as string) || '10';
+		const page = (req.query.page as string) || DEFAULT_PAGINATION_PAGE;
+		const pageSize = (req.query.pageSize as string) || DEFAULT_PAGINATION_PAGE_SIZE;
 
 		const { startDate, endDate, operationType, finantialEntity, amount, movementType } = req.body;
 
