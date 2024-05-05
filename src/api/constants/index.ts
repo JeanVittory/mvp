@@ -24,3 +24,5 @@ export const CREATED = 201;
 
 export const DEFAULT_PAGINATION_PAGE = '1';
 export const DEFAULT_PAGINATION_PAGE_SIZE = '10';
+
+export const X_TOTAL_COUNT = 'X-Total-Count';

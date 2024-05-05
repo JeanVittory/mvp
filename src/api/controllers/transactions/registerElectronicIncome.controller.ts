@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
-import { createElectronicIncome } from '../../services/electronicIncomes.service';
+import { createElectronicIncome } from '../../services/transactions/electronicIncomes.service';
 import { CREATED } from '../../constants';
 
 export const registerElectronicIncome = async (

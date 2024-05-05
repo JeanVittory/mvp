@@ -1,4 +1,4 @@
-export const paginationFormater = (page: string, pageSize: string) => {
+export const paginationFormater = (page: string | number, pageSize: string | number) => {
 	const pagination = {
 		page: +page || 1,
 		pageSize: +pageSize || 10,

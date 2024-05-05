@@ -3,10 +3,10 @@ import { ApiError } from '../../config/errors/apiError.config';
 import { authorizationSchema } from '../validators/authorization.validators';
 import { verifyJWT } from '../utils/verifyJwtToken.utils';
 import { JsonWebTokenError } from 'jsonwebtoken';
-import { getSessionById } from '../services/sessions.service';
+import { getSessionById } from '../services/sessions/sessions.service';
 import { signJwtToken } from '../utils/signJwtToken.utils';
 import { REFRESH_TOKEN_EXP_TIME } from '../constants';
-import { getUserByEmail } from '../services/user.service';
+import { getUserByEmail } from '../services/users/user.service';
 
 export const authorizationMiddleware = async (
 	req: Request,

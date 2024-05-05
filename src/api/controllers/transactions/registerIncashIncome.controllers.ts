@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
-import { createIncashIncome } from '../../services/inCashIncomes.service';
+import { createIncashIncome } from '../../services/transactions/inCashIncomes.service';
 
 export const registerIncashIncome = async (req: Request, res: Response, next: NextFunction) => {
 	try {

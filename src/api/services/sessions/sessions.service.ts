@@ -1,5 +1,5 @@
 import { PrismaClient, Session } from '@prisma/client';
-import { ApiError } from '../../config/errors/apiError.config';
+import { ApiError } from '../../../config/errors/apiError.config';
 
 export const createSession = async (
 	email: string,

@@ -1,9 +1,9 @@
-import { ApiError } from '../../config/errors/apiError.config';
-import { getUserByEmail } from './user.service';
-import { signJwtToken } from '../utils/signJwtToken.utils';
+import { ApiError } from '../../../config/errors/apiError.config';
+import { getUserByEmail } from '../users/user.service';
+import { signJwtToken } from '../../utils/signJwtToken.utils';
 import bcrypt from 'bcrypt';
-import { createSession } from './sessions.service';
-import { ACCESS_TOKEN_EXP_TIME, REFRESH_TOKEN_EXP_TIME } from '../constants';
+import { createSession } from '../sessions/sessions.service';
+import { ACCESS_TOKEN_EXP_TIME, REFRESH_TOKEN_EXP_TIME } from '../../constants';
 //import { IAuthenticationResponse } from '../interfaces/authenticationSuccess.interface';
 export const authenticationService = async (email: string, password: string) => {
 	try {

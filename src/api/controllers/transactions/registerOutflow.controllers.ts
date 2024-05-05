@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
-import { createOutflow } from '../../services/outflows.service';
+import { createOutflow } from '../../services/transactions/outflows.service';
 import { CREATED } from '../../constants';
 
 export const registerOutflow = async (

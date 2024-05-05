@@ -6,7 +6,7 @@
 		"debitNote": null,
 		"description": "Se realiza pago a proveedor OFIMATIC SAS",
 		"totalAmount": 30000,
-		"userEmail": "d1@yopmail.com"
+		"userEmail": "lavictoria@yopmail.com"
 	},
 	{
 		"movementType": "Egreso",
@@ -15,7 +15,16 @@
 		"debitNote": null,
 		"description": "Se realiza pago de envio de mercancia a Sogamoso",
 		"totalAmount": 200000,
-		"userEmail": "d1@yopmail.com"
+		"userEmail": "lavictoria@yopmail.com"
+	},
+	{
+		"movementType": "Egreso",
+		"operationType": null,
+		"financialEntity": null,
+		"debitNote": null,
+		"description": "Se realiza pago de almuerzos a Restaurante la Sazon",
+		"totalAmount": 200000,
+		"userEmail": "lavictoria@yopmail.com"
 	},
 	{
 		"movementType": "Ingreso en Efectivo",
@@ -24,7 +33,16 @@
 		"debitNote": 2500,
 		"description": null,
 		"totalAmount": 120000,
-		"userEmail": "surtidora@yopmail.com"
+		"userEmail": "lavictoria@yopmail.com"
+	},
+	{
+		"movementType": "Ingreso en Efectivo",
+		"operationType": null,
+		"financialEntity": null,
+		"debitNote": 4000,
+		"description": null,
+		"totalAmount": 150000,
+		"userEmail": "lavictoria@yopmail.com"
 	},
 	{
 		"movementType": "Ingreso Electrónico",
@@ -51,7 +69,7 @@
 		"debitNote": 2500,
 		"description": null,
 		"totalAmount": 8000,
-		"userEmail": "d1@yopmail.com"
+		"userEmail": "lavictoria@yopmail.com"
 	},
 	{
 		"movementType": "Ingreso Electrónico",
@@ -60,7 +78,7 @@
 		"debitNote": 5200,
 		"description": null,
 		"totalAmount": 10000,
-		"userEmail": "amiga@yopmail.com"
+		"userEmail": "lavictoria@yopmail.com"
 	},
 	{
 		"movementType": "Ingreso Electrónico",
@@ -69,6 +87,15 @@
 		"debitNote": 2000,
 		"description": null,
 		"totalAmount": 10800,
-		"userEmail": "amiga@yopmail.com"
+		"userEmail": "lavictoria@yopmail.com"
+	},
+	{
+		"movementType": "Ingreso Electrónico",
+		"operationType": "Transferencia",
+		"financialEntity": "Bancolombia",
+		"debitNote": 2000,
+		"description": null,
+		"totalAmount": 50000,
+		"userEmail": "lavictoria@yopmail.com"
 	}
 ]

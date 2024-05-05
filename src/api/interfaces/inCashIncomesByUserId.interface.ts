@@ -9,3 +9,8 @@ export interface IIncashIncome {
 export interface IIncashIncomeWithType extends IIncashIncome {
 	type: string;
 }
+
+export interface IIncashIncomePaginationResponse {
+	items: IIncashIncomeWithType[];
+	totalCount: number;
+}

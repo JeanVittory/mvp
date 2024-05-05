@@ -20,3 +20,8 @@ interface IFinancialEntity {
 export interface IElectronicIncomeWithType extends IElectronicIncome {
 	type: string;
 }
+
+export interface IElectronicIncomePaginationResponse {
+	items: IElectronicIncomeWithType[];
+	totalCount: number;
+}

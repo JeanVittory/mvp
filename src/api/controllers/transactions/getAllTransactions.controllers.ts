@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
-import { getElectronicIncomesByUserId } from '../../services/electronicIncomes.service';
-import { getIncashIncomesByUserId } from '../../services/inCashIncomes.service';
-import { getOutflowsByUserId } from '../../services/outflows.service';
+import { getElectronicIncomesByUserId } from '../../services/transactions/electronicIncomes.service';
+import { getIncashIncomesByUserId } from '../../services/transactions/inCashIncomes.service';
+import { getOutflowsByUserId } from '../../services/transactions/outflows.service';
 import { mergeAndSortObjects } from '../../utils/mergeAndSortObjects.utils';
 import { DEFAULT_PAGINATION_PAGE, DEFAULT_PAGINATION_PAGE_SIZE, OK } from '../../constants';
 import { paginationFormater } from '../../utils/paginationFormater.utils';

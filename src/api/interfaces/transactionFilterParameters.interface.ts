@@ -1,6 +1,6 @@
 export interface ITransactionFilter {
-	dateStart?: string;
-	dateEnd?: string;
+	startDate?: string;
+	endDate?: string;
 	operationType?: string;
 	finantialEntity?: string;
 	amount?: number;

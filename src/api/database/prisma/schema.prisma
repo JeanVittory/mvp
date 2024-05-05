@@ -41,19 +41,21 @@ model Session {
 }
 
 model Outflow {
-  id          String   @id @default(uuid())
-  description String
-  totalAmount Decimal
-  User        User     @relation(fields: [userId], references: [id])
-  userId      String
-  createdAt   DateTime @default(now())
+  id              String            @id @default(uuid())
+  description     String
+  totalAmount     Decimal
+  User            User              @relation(fields: [userId], references: [id])
+  userId          String
+  AllTransactions AllTransactions[]
+  createdAt       DateTime          @default(now())
 }
 
 model MovementType {
-  id        String   @id @default(uuid())
-  nameEs    String
-  nameEn    String
-  createdAt DateTime @default(now())
+  id              String            @id @default(uuid())
+  nameEs          String
+  nameEn          String
+  AllTransactions AllTransactions[]
+  createdAt       DateTime          @default(now())
 }
 
 model OperationType {
@@ -72,25 +74,27 @@ model FinancialEntity {
 }
 
 model ElectronicSale {
-  id                String          @id @default(uuid())
-  User              User            @relation(fields: [userId], references: [id])
+  id                String            @id @default(uuid())
+  User              User              @relation(fields: [userId], references: [id])
   userId            String
-  OperationType     OperationType   @relation(fields: [operationTypeId], references: [id])
+  OperationType     OperationType     @relation(fields: [operationTypeId], references: [id])
   operationTypeId   String
-  FinancialEntity   FinancialEntity @relation(fields: [financialEntityId], references: [id])
+  FinancialEntity   FinancialEntity   @relation(fields: [financialEntityId], references: [id])
   financialEntityId String
+  AllTransactions   AllTransactions[]
   debitNote         Decimal
   totalAmount       Decimal
-  createdAt         DateTime        @default(now())
+  createdAt         DateTime          @default(now())
 }
 
 model CashIncome {
-  id          String   @id @default(uuid())
-  User        User     @relation(fields: [userId], references: [id])
-  userId      String
-  totalAmount Decimal
-  debitNote   Decimal
-  createdAt   DateTime @default(now())
+  id              String            @id @default(uuid())
+  User            User              @relation(fields: [userId], references: [id])
+  userId          String
+  AllTransactions AllTransactions[]
+  totalAmount     Decimal
+  debitNote       Decimal
+  createdAt       DateTime          @default(now())
 }
 
 model CashCount {
@@ -108,4 +112,17 @@ model Sale {
   description String?
   totalAmount Decimal
   createdAt   DateTime @default(now())
+}
+
+model AllTransactions {
+  id               String          @id @default(uuid())
+  MovementType     MovementType    @relation(fields: [movementTypeId], references: [id])
+  movementTypeId   String
+  Outflow          Outflow?        @relation(fields: [outflowId], references: [id])
+  outflowId        String?
+  ElectronicSale   ElectronicSale? @relation(fields: [electronicSaleId], references: [id])
+  electronicSaleId String?
+  CashIncome       CashIncome?     @relation(fields: [cashIncomeId], references: [id])
+  cashIncomeId     String?
+  createdAt        DateTime        @default(now())
 }

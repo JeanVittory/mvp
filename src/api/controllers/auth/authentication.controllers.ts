@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { authenticationService } from '../../services/authentication.service';
+import { authenticationService } from '../../services/authentication/authentication.service';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
 import { OK } from '../../constants';
 

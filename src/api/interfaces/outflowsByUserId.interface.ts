@@ -9,3 +9,8 @@ export interface IOutflow {
 export interface IOutflowWithType extends IOutflow {
 	type: string;
 }
+
+export interface IOutflowPaginationResponse {
+	items: IOutflowWithType[];
+	totalCount: number;
+}

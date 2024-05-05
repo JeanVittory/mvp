@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { deleteSessionById } from '../../services/sessions.service';
+import { deleteSessionById } from '../../services/sessions/sessions.service';
 import { ApiError } from '../../../config/errors/apiError.config';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
 import { OK } from '../../constants';

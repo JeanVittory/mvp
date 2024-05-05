@@ -2,7 +2,7 @@ import express from 'express';
 import { Request, Response, NextFunction, urlencoded } from 'express';
 import { routesConfiguration } from './router.config';
 import { errorHandler } from './errors/errorHandler.config';
-import { cleanSessions } from '../api/services/cron.service';
+import { cleanSessions } from '../api/services/cron/cron.service';
 import cookieParser from 'cookie-parser';
 
 export const app = express();

@@ -9,7 +9,7 @@ import { registerIncashIncome } from '../controllers/transactions/registerIncash
 import { allTransactions } from '../controllers/transactions/getAllTransactions.controllers';
 import { paginationMiddleware } from '../middlewares/paginationValidator.middleware';
 import { ValidateFilterParamsMiddleware } from '../middlewares/validateFilterParams.middleware';
-import { transactionsByFilter } from '../controllers/transactions/getTransactionsByFilter.controller';
+import { transactionsByFilter } from '../controllers/transactions/getTransactionsFiltered.controller';
 
 const transactionRouter = Router();
 
