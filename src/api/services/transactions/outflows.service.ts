@@ -26,7 +26,6 @@ export const createOutflow = async (
 		await createOutflowTransaction(outflowCreated.id, movementTypeId);
 		return outflowCreated;
 	} catch (error) {
-		console.log(error);
 		throw error;
 	}
 };

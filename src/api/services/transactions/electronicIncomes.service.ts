@@ -103,8 +103,6 @@ export const getElectronicIncomesIdslistFiltered = async (
 
 const fetchFilteredElectronicIncomes = async (filter: IElectronicIncomeFilterPayloadToPrisma) => {
 	try {
-		console.log(filter);
-
 		const result = await prisma.electronicSale.findMany({
 			where: filter,
 			select: {

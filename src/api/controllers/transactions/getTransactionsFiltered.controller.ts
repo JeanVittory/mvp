@@ -54,15 +54,12 @@ export const transactionsByFilter = async (req: Request, res: Response, next: Ne
 			movementType?.includes(INGRESO_ELECTRONICO) ||
 			movementType?.includes(ELECTRONIC_PAYMENT)
 		) {
-			console.log('ingrese aqui');
 			const listOfTransactionsIds = await getElectronicIncomesIdslistFiltered(userId, req.body);
 			const { transactions, xTotalCount } = await getTransactionsFiltered(
 				listOfTransactionsIds,
 				pageFormatted,
 				pageSizeFormatted
 			);
-			console.log('🚀 ~ transactionsByFilter ~ transactions:', transactions);
-
 			response = [...transactions];
 			totalItemsRemaining += xTotalCount;
 		}

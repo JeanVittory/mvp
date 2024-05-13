@@ -17,7 +17,6 @@ export const createSession = async (
 			},
 		});
 	} catch (error) {
-		console.log('aquiii', error);
 		throw error;
 	}
 };

@@ -47,7 +47,6 @@ export const getTransactionsFiltered = async (
 	page: number,
 	pageSize: number
 ) => {
-	console.log('🚀 ~ listOfIdsFiltered:', listOfIdsFiltered);
 	try {
 		const startIndex = (page - 1) * pageSize;
 		const transactionsResult = await Promise.all(
@@ -78,7 +77,6 @@ export const getTransactionsFiltered = async (
 				});
 			})
 		);
-		console.log('🚀 ~ transactionsResult:', transactionsResult);
 		let responseWithNotNulls: any[] = [];
 		transactionsResult.forEach((item) => {
 			let previous = { ...item };
