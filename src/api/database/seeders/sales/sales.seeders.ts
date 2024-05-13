@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import sales from './sale.json';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../config/turso/turso.config';
 
 const createSale = async () => {
 	try {

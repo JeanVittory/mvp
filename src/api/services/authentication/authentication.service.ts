@@ -21,6 +21,7 @@ export const authenticationService = async (email: string, password: string) => 
 		);
 		return { ACCESS_TOKEN, REFRESH_TOKEN };
 	} catch (error) {
+		console.log('aqui 2', error);
 		if (error instanceof ApiError) throw ApiError.Unauthorized();
 		throw error;
 	}

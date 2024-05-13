@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../../../config/turso/turso.config';
 import { IIds } from '../../interfaces/id.interface';
 
 export const createElectronicTransaction = async (
@@ -6,7 +6,6 @@ export const createElectronicTransaction = async (
 	movementTypeId: string
 ) => {
 	try {
-		const prisma = new PrismaClient();
 		await prisma.allTransactions.create({
 			data: {
 				MovementType: { connect: { id: movementTypeId } },
@@ -20,7 +19,6 @@ export const createElectronicTransaction = async (
 
 export const createInCashTransaction = async (transactionId: string, movementTypeId: string) => {
 	try {
-		const prisma = new PrismaClient();
 		await prisma.allTransactions.create({
 			data: {
 				MovementType: { connect: { id: movementTypeId } },
@@ -33,7 +31,6 @@ export const createInCashTransaction = async (transactionId: string, movementTyp
 };
 export const createOutflowTransaction = async (transactionId: string, movementTypeId: string) => {
 	try {
-		const prisma = new PrismaClient();
 		await prisma.allTransactions.create({
 			data: {
 				MovementType: { connect: { id: movementTypeId } },
@@ -52,7 +49,6 @@ export const getTransactionsFiltered = async (
 ) => {
 	console.log('🚀 ~ listOfIdsFiltered:', listOfIdsFiltered);
 	try {
-		const prisma = new PrismaClient();
 		const startIndex = (page - 1) * pageSize;
 		const transactionsResult = await Promise.all(
 			listOfIdsFiltered.slice(startIndex, startIndex + pageSize).map(async ({ id }) => {

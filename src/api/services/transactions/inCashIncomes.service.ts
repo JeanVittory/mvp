@@ -1,4 +1,4 @@
-import { CashIncome, PrismaClient } from '@prisma/client';
+import { CashIncome } from '@prisma/client';
 import { ICashIncomePayload } from '../../interfaces/inCashIncomePayload.interface';
 import { IIncashIncomeWithType } from '../../interfaces/inCashIncomesByUserId.interface';
 import { CASH_PAYMENT } from '../../constants';
@@ -8,13 +8,13 @@ import {
 } from '../../interfaces/transactionFilterParameters.interface';
 import { getMovementTypeByName } from '../movementTypes/movementType.service';
 import { createInCashTransaction } from './allTransactions.service';
+import { prisma } from '../../../config/turso/turso.config';
 
 export const createIncashIncome = async (
 	{ totalAmount, debitNote }: ICashIncomePayload,
 	userId: string
 ): Promise<CashIncome> => {
 	try {
-		const prisma = new PrismaClient();
 		const cashIncomeCreated = await prisma.cashIncome.create({
 			data: {
 				debitNote,
@@ -36,7 +36,6 @@ export const getIncashIncomesByUserId = async (
 	pageSize: number
 ): Promise<IIncashIncomeWithType[]> => {
 	try {
-		const prisma = new PrismaClient();
 		const result = await prisma.allTransactions.findMany({
 			where: {
 				CashIncome: {
@@ -91,8 +90,6 @@ export const getInCashIncomesIdsListFiltered = async (
 
 const fetchFilteredCashIncomes = async (filter: IIncashIncomeFilterPayloadToPrisma) => {
 	try {
-		const prisma = new PrismaClient();
-
 		const result = await prisma.cashIncome.findMany({
 			where: filter,
 			select: {
@@ -108,7 +105,6 @@ const fetchFilteredCashIncomes = async (filter: IIncashIncomeFilterPayloadToPris
 
 export const getTotalInCashRecordsByUserId = async (userId: string) => {
 	try {
-		const prisma = new PrismaClient();
 		return await prisma.cashIncome.count({ where: { userId } });
 	} catch (error) {
 		throw error;

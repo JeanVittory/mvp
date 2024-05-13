@@ -1,4 +1,4 @@
-import { ElectronicSale, PrismaClient } from '@prisma/client';
+import { ElectronicSale } from '@prisma/client';
 import { IElectronicIncomePayload } from '../../interfaces/electronicIncomePayload.interface';
 import { IElectronicIncomeWithType } from '../../interfaces/electronicIncomesByUserId.interface';
 import { ELECTRONIC_PAYMENT } from '../../constants';
@@ -8,13 +8,13 @@ import {
 } from '../../interfaces/transactionFilterParameters.interface';
 import { createElectronicTransaction } from './allTransactions.service';
 import { getMovementTypeByName } from '../movementTypes/movementType.service';
+import { prisma } from '../../../config/turso/turso.config';
 
 export const createElectronicIncome = async (
 	{ financialEntity, operationType, totalAmount, debitNote }: IElectronicIncomePayload,
 	userId: string
 ): Promise<ElectronicSale> => {
 	try {
-		const prisma = new PrismaClient();
 		const electronicSaleCreated = await prisma.electronicSale.create({
 			data: {
 				debitNote,
@@ -38,7 +38,6 @@ export const getElectronicIncomesByUserId = async (
 	pageSize: number
 ): Promise<IElectronicIncomeWithType[]> => {
 	try {
-		const prisma = new PrismaClient();
 		const result = await prisma.allTransactions.findMany({
 			where: {
 				ElectronicSale: { userId },
@@ -104,7 +103,6 @@ export const getElectronicIncomesIdslistFiltered = async (
 
 const fetchFilteredElectronicIncomes = async (filter: IElectronicIncomeFilterPayloadToPrisma) => {
 	try {
-		const prisma = new PrismaClient();
 		console.log(filter);
 
 		const result = await prisma.electronicSale.findMany({
@@ -122,7 +120,6 @@ const fetchFilteredElectronicIncomes = async (filter: IElectronicIncomeFilterPay
 
 export const getTotalElectronicIncomesRecordsByUserId = async (userId: string) => {
 	try {
-		const prisma = new PrismaClient();
 		return await prisma.electronicSale.count({ where: { userId } });
 	} catch (error) {
 		throw error;
