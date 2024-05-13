@@ -16,8 +16,8 @@ import {
 } from '../constants';
 
 export const transactionFilterSchema = Joi.object({
-	startDate: Joi.date(),
-	endDate: Joi.date(),
+	startDate: Joi.date().iso(),
+	endDate: Joi.date().iso(),
 	operationType: Joi.array().items(Joi.string().valid(TRANSFERENCE, TRANSFERENCIA, DEBITO, DEBIT)),
 	finantialEntity: Joi.array().items(Joi.string().valid(NEQUI, BANCOLOMBIA, DAVIPLATA)),
 	amount: Joi.number(),
