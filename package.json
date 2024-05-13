@@ -10,7 +10,7 @@
 		"prisma:seeders": "ts-node-dev ./src/api/database/seeders/users/register.seeders.ts && ts-node-dev ./src/api/database/seeders/movementTypes/movementType.seeders.ts && ts-node-dev ./src/api/database/seeders/operationType/operationType.seeders.ts && ts-node-dev ./src/api/database/seeders/financialEntity/financialEntity.seeders.ts",
 		"prisma:migrate:dev": "npx prisma migrate dev",
 		"prisma:reset": "npx prisma migrate reset",
-		"turso:migrate:dev": "npx prisma migrate diff  --from-empty --to-schema-datamodel src/api/database/prisma/schema.prisma --script > baseline.sql",
+		"turso:migrate:dev": "npx prisma migrate diff  --from-empty --to-schema-datamodel src/api/database/prisma/schema.prisma --script > src/api/database/prisma/baseline.sql",
 		"turso:apply:dev": "turso db shell cash-flow < baseline.sql"
 	},
 	"devDependencies": {
