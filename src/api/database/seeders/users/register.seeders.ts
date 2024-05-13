@@ -1,8 +1,6 @@
 import users from './user.json';
-import { PrismaClient } from '@prisma/client';
 import { encryptPassword } from '../../../utils/passwordEncryption.utils';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../../config/turso/turso.config';
 
 const createUser = async () => {
 	try {

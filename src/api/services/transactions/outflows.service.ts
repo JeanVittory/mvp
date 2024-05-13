@@ -1,4 +1,4 @@
-import { Outflow, PrismaClient } from '@prisma/client';
+import { Outflow } from '@prisma/client';
 import { IOutflowPayload } from '../../interfaces/outflowPayload.interface';
 import { IOutflowWithType } from '../../interfaces/outflowsByUserId.interface';
 import { OUTCOME } from '../../constants';
@@ -8,13 +8,13 @@ import {
 } from '../../interfaces/transactionFilterParameters.interface';
 import { getMovementTypeByName } from '../movementTypes/movementType.service';
 import { createOutflowTransaction } from './allTransactions.service';
+import { prisma } from '../../../config/turso/turso.config';
 
 export const createOutflow = async (
 	{ description, totalAmount }: IOutflowPayload,
 	userId: string
 ): Promise<Outflow> => {
 	try {
-		const prisma = new PrismaClient();
 		const outflowCreated = await prisma.outflow.create({
 			data: {
 				User: { connect: { id: userId } },
@@ -36,7 +36,6 @@ export const getOutflowsByUserId = async (
 	pageSize: number
 ): Promise<IOutflowWithType[]> => {
 	try {
-		const prisma = new PrismaClient();
 		const result = await prisma.allTransactions.findMany({
 			where: {
 				Outflow: {
@@ -88,8 +87,6 @@ export const getOutflowsIdsListFiltered = async (
 
 const fetchFilteredOutflowsIncomes = async (filter: IOutflowsFilterPayloadToPrisma) => {
 	try {
-		const prisma = new PrismaClient();
-
 		const result = await prisma.outflow.findMany({
 			where: filter,
 			select: {
@@ -105,7 +102,6 @@ const fetchFilteredOutflowsIncomes = async (filter: IOutflowsFilterPayloadToPris
 
 export const getTotalOutflowsRecordsByUserId = async (userId: string) => {
 	try {
-		const prisma = new PrismaClient();
 		return await prisma.outflow.count({ where: { userId } });
 	} catch (error) {
 		throw error;

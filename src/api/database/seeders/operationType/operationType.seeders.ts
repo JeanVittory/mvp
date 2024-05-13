@@ -1,12 +1,15 @@
-import { PrismaClient } from '@prisma/client';
 import operationTypes from './operationType.json';
-const prisma = new PrismaClient();
+import { prisma } from '../../../../config/turso/turso.config';
 
 const createOperationTypes = async () => {
 	try {
-		await prisma.operationType.createMany({
-			data: [...operationTypes],
+		const promises = operationTypes.map(async (operationType) => {
+			await prisma.operationType.create({
+				data: operationType,
+			});
 		});
+
+		Promise.all(promises);
 	} catch (error) {
 		console.log('Error: createOperationTypes seeder...');
 	}

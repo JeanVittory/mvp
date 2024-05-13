@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
 import { ApiError } from '../../../config/errors/apiError.config';
+import { prisma } from '../../../config/turso/turso.config';
 
 export const getUserByEmail = async (email: string) => {
 	try {
-		const prisma = new PrismaClient();
 		const user = await prisma.user.findUnique({
 			where: { email },
 			select: {

@@ -1,12 +1,14 @@
-import { PrismaClient } from '@prisma/client';
 import movementTypes from './movementType.json';
-const prisma = new PrismaClient();
+import { prisma } from '../../../../config/turso/turso.config';
 
 const createMovementTypes = async () => {
 	try {
-		await prisma.movementType.createMany({
-			data: [...movementTypes],
+		const promises = movementTypes.map(async (movementType) => {
+			await prisma.movementType.create({
+				data: movementType,
+			});
 		});
+		await Promise.all(promises);
 	} catch (error) {
 		console.log('Error: registerSale seeder...');
 	}

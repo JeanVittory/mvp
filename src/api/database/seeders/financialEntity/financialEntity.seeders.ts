@@ -1,12 +1,15 @@
-import { PrismaClient } from '@prisma/client';
 import financialEntities from './financialEntity.json';
-const prisma = new PrismaClient();
+import { prisma } from '../../../../config/turso/turso.config';
 
 const createFinancialEntities = async () => {
 	try {
-		await prisma.financialEntity.createMany({
-			data: [...financialEntities],
+		const promises = financialEntities.map(async (finantialEntity) => {
+			await prisma.financialEntity.create({
+				data: finantialEntity,
+			});
 		});
+
+		Promise.all(promises);
 	} catch (error) {
 		console.log('Error: registerSale seeder...');
 	}
