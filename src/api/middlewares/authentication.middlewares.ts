@@ -13,7 +13,7 @@ export const authenticationMiddleware = (
 	if (!email || !password)
 		return next(
 			ApiError.BadRequest(
-				`${errorCode.authentication.INVALID_INFORMATION.CODE}:${errorCode.authentication.INVALID_INFORMATION.MESSAGE}`
+				`${errorCode.authentication.INVALID_INFORMATION.CODE}: ${errorCode.authentication.INVALID_INFORMATION.MESSAGE}`
 			)
 		);
 	const { error } = authenticationSchema.validate({ email, password });
