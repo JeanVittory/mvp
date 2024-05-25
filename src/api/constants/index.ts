@@ -23,6 +23,7 @@ export const BANCOLOMBIA = 'Bancolombia';
 
 export const OK = 200;
 export const CREATED = 201;
+export const OK_WITH_NO_RESPONSE = 204;
 
 export const DEFAULT_PAGINATION_PAGE = '1';
 export const DEFAULT_PAGINATION_PAGE_SIZE = '10';

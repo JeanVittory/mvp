@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { authenticationService } from '../../services/authentication/authentication.service';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
-import { ACCESS_TOKEN_EXP_COOKIE_TIME, OK, REFRESH_TOKEN_EXP_COOKIE_TIME } from '../../constants';
+import {
+	ACCESS_TOKEN_EXP_COOKIE_TIME,
+	OK_WITH_NO_RESPONSE,
+	REFRESH_TOKEN_EXP_COOKIE_TIME,
+} from '../../constants';
 // import { serializer } from '../../utils/serializer.utils';
 
 export const authentication = async (
@@ -24,7 +28,7 @@ export const authentication = async (
 			secure: process.env.NODE_ENV === 'production',
 			sameSite: 'strict',
 		});
-		res.status(OK).json('SUCCESS');
+		res.status(OK_WITH_NO_RESPONSE).json({});
 	} catch (error) {
 		errorCatcher(error, next);
 	}

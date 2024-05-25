@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { errorCatcher } from '../../utils/errorCatcher.utils';
 import { refreshTokenService } from '../../services/authentication/authentication.service';
-import { OK } from '../../constants';
+import { ACCESS_TOKEN_EXP_COOKIE_TIME, OK_WITH_NO_RESPONSE } from '../../constants';
 
 export const refreshToken = async (
 	req: Request,
@@ -9,10 +9,15 @@ export const refreshToken = async (
 	next: NextFunction
 ): Promise<void> => {
 	try {
-		const { REFRESH_TOKEN } = req.body;
-		const ACCESS_TOKEN = await refreshTokenService(REFRESH_TOKEN);
-		console.log('REVISAR ESTO!', ACCESS_TOKEN);
-		res.status(OK).json(ACCESS_TOKEN);
+		const { REFRESH_TOKEN } = req.cookies;
+		const { ACCESS_TOKEN } = await refreshTokenService(REFRESH_TOKEN);
+		res.cookie('ACCESS_TOKEN', ACCESS_TOKEN, {
+			maxAge: ACCESS_TOKEN_EXP_COOKIE_TIME,
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: 'strict',
+		});
+		res.status(OK_WITH_NO_RESPONSE).json();
 	} catch (error) {
 		errorCatcher(error, next);
 	}
