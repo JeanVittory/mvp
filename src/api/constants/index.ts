@@ -29,3 +29,9 @@ export const DEFAULT_PAGINATION_PAGE = '1';
 export const DEFAULT_PAGINATION_PAGE_SIZE = '10';
 
 export const X_TOTAL_COUNT = 'X-Total-Count';
+
+
+export const CORS_OPTIONS = {
+    origin: 'http://localhost:3000', // this value must be replaced by the prodcution domain when the appplication is deployed
+    credentials: true,
+}

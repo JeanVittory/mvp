@@ -3,10 +3,9 @@ import { authenticationService } from '../../services/authentication/authenticat
 import { errorCatcher } from '../../utils/errorCatcher.utils';
 import {
 	ACCESS_TOKEN_EXP_COOKIE_TIME,
-	OK_WITH_NO_RESPONSE,
+	OK,
 	REFRESH_TOKEN_EXP_COOKIE_TIME,
 } from '../../constants';
-// import { serializer } from '../../utils/serializer.utils';
 
 export const authentication = async (
 	req: Request,
@@ -21,14 +20,17 @@ export const authentication = async (
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'production',
 			sameSite: 'strict',
+			path: '/'
 		});
 		res.cookie('REFRESH_TOKEN', REFRESH_TOKEN, {
 			maxAge: REFRESH_TOKEN_EXP_COOKIE_TIME,
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'production',
 			sameSite: 'strict',
+			path: '/'
+
 		});
-		res.status(OK_WITH_NO_RESPONSE).json({});
+		res.status(OK).json({ ACCESS_TOKEN });
 	} catch (error) {
 		errorCatcher(error, next);
 	}
